@@ -1,0 +1,18 @@
+[{
+    "id": 1,
+    "pergunta" : "o que é o html?",
+    "resposta" : "Linguagem de marcação de hipertexto",
+    "exemplos": "exemplo1, exemplo2, exemplo3",
+    "envios":""
+
+},
+
+
+{
+  "id": 1,
+  "pergunta" : "o que é o html?",
+  "resposta" : "Linguagem de marcação de hipertexto",
+  "exemplos": "exemplo1, exemplo2, exemplo3",
+  "envios":""
+}
+]

@@ -1,11 +1,17 @@
 import QuestaoItem from "./QuestaoItem";
 
-export default function QuestoesLista({ questoes, Selecionar }) {
-  return (
-    <ul>
-      {questoes.map((q) => (
-        <QuestaoItem key={q.id} questao={q} onSelecionar={Selecionar} />
-      ))}
-    </ul>
-  );
+interface questao {
+    id: number;
+    titulo: string;
+    resposta: string;
+}
+
+export default function QuestoesLista({ questoes }: { questoes: questao[] }) {
+    return (
+        <ol>
+            {questoes.map((q) => (
+                <QuestaoItem key={q.id} questao={q} />
+            ))}
+        </ol>
+    );
 }

@@ -1,18 +1,13 @@
-<<<<<<< HEAD
-=======
-import './App.css'
-
-function App() {
->>>>>>> 99a4ce1921be84460eece6315c8fb084a76bae21
+import { Questoes } from "./Questoes"
+import QuestoesLista from "./QuestaoLista"
 
 export default function App() {
   return (
-<<<<<<< HEAD
-    <div>App</div>
-=======
     <>
-    <h1>Hello!</h1>
+      <div>
+        <QuestoesLista questoes={Questoes}   />
+      </div>
+
     </>
->>>>>>> 99a4ce1921be84460eece6315c8fb084a76bae21
   )
 }
