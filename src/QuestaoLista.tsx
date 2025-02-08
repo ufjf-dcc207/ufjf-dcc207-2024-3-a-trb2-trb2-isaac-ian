@@ -1,16 +1,13 @@
+import questoes from "./questoes.json"
 import QuestaoItem from "./QuestaoItem";
 
-interface questao {
-    id: number;
-    titulo: string;
-    resposta: string;
-}
-
-export default function QuestoesLista({ questoes }: { questoes: questao[] }) {
+export default function QuestoesLista() {
     return (
         <ol>
             {questoes.map((q) => (
-                <QuestaoItem key={q.id} questao={q} />
+                <li key={q.id}>
+                    <QuestaoItem pergunta={q.pergunta} exemplo={q.exemplos}/>
+                </li>
             ))}
         </ol>
     );
