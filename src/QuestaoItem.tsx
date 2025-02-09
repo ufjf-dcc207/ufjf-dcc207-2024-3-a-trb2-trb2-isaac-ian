@@ -1,43 +1,65 @@
-import { useState } from "react";
-import './QuestaoItem.css';
+import { useReducer } from "react";
+import "./QuestaoItem.css";
 
 interface questaoInterface {
-  pergunta: String;
-  exemplo: String
+  pergunta: string;
+  exemplo: string;
 }
 
-export default function QuestaoItem({pergunta, exemplo}: questaoInterface) {
-  const [resposta, setResposta] = useState('');
-  const [bloqueado, setBloqueado] = useState(false);
-  
-  const validaResposta = (e: React.FormEvent) => {
-    e.preventDefault(); 
+interface Estado {
+  resposta: string;
+  bloqueado: boolean;
+}
 
-    if (resposta === '') {
-        alert("Resposta vazia, digete algo!");
-    } else {
-        setBloqueado(true);
-    }
+type Action =
+  | { type: "setResposta"; payload: string }
+  | { type: "bloquear" | "editar" };
+
+const estadoInicial: Estado = {
+  resposta: "",
+  bloqueado: false,
 };
 
-
-  function editarResposta(){
-    setBloqueado(false);
+function reducer(estado: Estado, action: Action):Estado {
+  switch (action.type) {
+    default:
+      return estado;
+    case "setResposta":
+      return { ...estado, resposta: action.payload };
+    case "bloquear":
+      return validaResposta(estado);
+    case "editar":
+      return { ...estado, bloqueado: false };
   }
+}
 
-  return <>
-  <div className="pergunta">{pergunta}</div>
-  <div className="exemplo">Ex: {exemplo}</div>
-    <form onSubmit={validaResposta}>
+function validaResposta(estado: Estado):Estado {
+  if (estado.resposta === "") {
+    alert("Campo de resposta vazio.");
+    return { ...estado };
+  } else {
+    return { ...estado, bloqueado: true };
+  }
+}
+
+export default function QuestaoItem({ pergunta, exemplo }: questaoInterface) {
+  const [estado, dispatch] = useReducer(reducer, estadoInicial);
+
+  return (
+    <>
+      <div className="pergunta">{pergunta}</div>
+      <div className="exemplo">Ex: {exemplo}</div>
       <input
         type="text"
         placeholder="Digite sua resposta aqui..."
-        value={resposta}
-        onChange={(e) => setResposta(e.target.value)}
-        disabled={bloqueado}
+        value={estado.resposta}
+        onChange={(e) =>
+          dispatch({ type: "setResposta", payload: e.target.value })
+        }
+        disabled={estado.bloqueado}
       />
-      <button type="submit">Enviar</button>
-      <button type="button" onClick={editarResposta}>Editar</button>
-    </form>  
-  </>
+      <button type="submit" onClick={() => dispatch({type: 'bloquear'})}>Enviar</button>
+      <button type="button" onClick={() => dispatch({type: 'editar'})}>Editar</button>
+    </>
+  );
 }
