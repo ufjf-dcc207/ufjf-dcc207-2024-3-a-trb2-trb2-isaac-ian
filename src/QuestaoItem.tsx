@@ -11,9 +11,15 @@ export default function QuestaoItem({pergunta, exemplo}: questaoInterface) {
   const [bloqueado, setBloqueado] = useState(false);
   
   const validaResposta = (e: React.FormEvent) => {
-    resposta === '' ? alert("Resposta vazia") : setBloqueado(true);
-    e.preventDefault();
-  }
+    e.preventDefault(); 
+
+    if (resposta === '') {
+        alert("Resposta vazia");
+    } else {
+        setBloqueado(true);
+    }
+};
+
 
   function editarResposta(){
     setBloqueado(false);
