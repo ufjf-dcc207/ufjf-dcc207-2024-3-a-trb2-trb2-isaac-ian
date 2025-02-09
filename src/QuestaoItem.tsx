@@ -14,7 +14,7 @@ export default function QuestaoItem({pergunta, exemplo}: questaoInterface) {
     e.preventDefault(); 
 
     if (resposta === '') {
-        alert("Resposta vazia");
+        alert("Resposta vazia, digete algo!");
     } else {
         setBloqueado(true);
     }
