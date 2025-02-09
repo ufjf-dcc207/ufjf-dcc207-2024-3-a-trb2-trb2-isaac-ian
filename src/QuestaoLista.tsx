@@ -1,4 +1,5 @@
-import questoes from "./questoes.json"
+import questoes from "./questoes.json";
+import './QuestaoLista.css'
 import QuestaoItem from "./QuestaoItem";
 
 export default function QuestoesLista() {
