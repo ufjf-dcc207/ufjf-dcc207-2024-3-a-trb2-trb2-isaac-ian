@@ -3,7 +3,7 @@
     "id": 1,
     "pergunta": "O que são tags semânticas no HTML5 e por que são importantes?",
     "resposta": "Tags semânticas, como <header>, <article>, <section>, e <footer>",
-    "exemplos": "Footer",
+    "exemplos": "<footer>",
     "envios": ""
   },
   {
@@ -11,6 +11,20 @@
     "pergunta": "Qual a diferença entre as tags <ol> e <ul>??",
     "resposta": "A tag <ol> é usada para criar listas ordenadas, Já a tag <ul>cria listas não ordenadas",
     "exemplos": "<ol>: Classificação dos três melhores filmes do ano. <ul>: Lista de compras",
+    "envios": ""
+  },
+  {
+    "id": 3,
+    "pergunta": "Qual a diferença entre uma div e um fragmento no React?",
+    "resposta": "Diferente de uma div, um fragmento não cria um nó no DOM, servindo apenas para agrupar elementos.",
+    "exemplos": "<div> e <>",
+    "envios": ""
+  },
+  {
+    "id": 4,
+    "pergunta": "O que acontece se esquecermos de fechar uma tag no JSX?",
+    "resposta": "O React mostrará um erro de sintaxe, pois o JSX exige que todas as tags sejam corretamente fechadas.",
+    "exemplos": "<h1> Olá mundo! ",
     "envios": ""
   }
 ]
