@@ -20,16 +20,13 @@ body {
     border-top: 1px solid #ddd;
     padding-top: 10px;
   }
-  
-  form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
+
+  .campo_resposta {
+    display: grid;
+    grid-template-columns: 7.5fr 1fr 1fr;
   }
-  
+
   input {
-    flex: 1;
     padding: 10px;
     font-size: 0.9rem;
     border: 1px solid #ddd;
