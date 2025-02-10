@@ -1,4 +1,4 @@
-import questoes from "./questoes.json";
+import questoes from "./Questoes.json";
 import './QuestaoLista.css'
 import QuestaoItem from "./QuestaoItem";
 
