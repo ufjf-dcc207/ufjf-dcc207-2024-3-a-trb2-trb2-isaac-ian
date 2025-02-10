@@ -1,10 +1,6 @@
 import { useReducer } from "react";
 import "./QuestaoItem.css";
-
-interface questaoInterface {
-  pergunta: string;
-  exemplo: string;
-}
+import { questaoInterface } from "./QuestaoLista";
 
 interface Estado {
   resposta: string;
@@ -34,7 +30,7 @@ function reducer(estado: Estado, action: Action):Estado {
   }
 }
 
-export default function QuestaoItem({ pergunta, exemplo }: questaoInterface) {
+export default function QuestaoItem({ pergunta, exemplos }: questaoInterface) {
   const [estado, dispatch] = useReducer(reducer, estadoInicial);
 
   const validaResposta = () => {
@@ -48,7 +44,7 @@ export default function QuestaoItem({ pergunta, exemplo }: questaoInterface) {
   return (
     <>
       <div className="pergunta">{pergunta}</div>
-      <div className="exemplo">Ex: {exemplo}</div>
+      <div className="exemplo">Ex: {exemplos}</div>
       <div className="campo_resposta">
         <input
           type="text"
