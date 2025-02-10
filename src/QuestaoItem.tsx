@@ -27,23 +27,22 @@ function reducer(estado: Estado, action: Action):Estado {
     case "setResposta":
       return { ...estado, resposta: action.payload };
     case "bloquear":
-      return validaResposta(estado);
+      return { ...estado, bloqueado: true };
     case "editar":
       return { ...estado, bloqueado: false };
   }
 }
 
-function validaResposta(estado: Estado):Estado {
-  if (estado.resposta === "") {
-    alert("Campo de resposta vazio.");
-    return { ...estado };
-  } else {
-    return { ...estado, bloqueado: true };
-  }
-}
-
 export default function QuestaoItem({ pergunta, exemplo }: questaoInterface) {
   const [estado, dispatch] = useReducer(reducer, estadoInicial);
+
+  const validaResposta = () => {
+    if (estado.resposta === "") {
+      alert("Campo de resposta vazio.");
+    } else {
+      dispatch({type: 'bloquear'});
+    }
+  }
 
   return (
     <>
@@ -58,7 +57,7 @@ export default function QuestaoItem({ pergunta, exemplo }: questaoInterface) {
         }
         disabled={estado.bloqueado}
       />
-      <button type="submit" onClick={() => dispatch({type: 'bloquear'})}>Enviar</button>
+      <button type="submit" onClick={validaResposta}>Enviar</button>
       <button type="button" onClick={() => dispatch({type: 'editar'})}>Editar</button>
     </>
   );
