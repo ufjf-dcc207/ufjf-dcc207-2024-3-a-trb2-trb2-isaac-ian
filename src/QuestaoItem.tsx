@@ -9,15 +9,14 @@ interface Estado {
 
 type Action =
   | { type: "setResposta"; texto: string }
-  | { type: "bloquear"}
-  | { type: "editar"};
+  | { type: "bloquear" | "editar" }
 
 const estadoInicial: Estado = {
   resposta: "",
   bloqueado: false,
 };
 
-function reducer(estado: Estado, action: Action):Estado {
+function reducer(estado: Estado, action: Action): Estado {
   switch (action.type) {
     default:
       return estado;
@@ -37,7 +36,7 @@ export default function QuestaoItem({ pergunta, exemplos }: questaoInterface) {
     if (estado.resposta === "") {
       alert("Campo de resposta vazio.");
     } else {
-      dispatch({type: 'bloquear'});
+      dispatch({ type: 'bloquear' });
     }
   }
 
@@ -56,7 +55,7 @@ export default function QuestaoItem({ pergunta, exemplos }: questaoInterface) {
           disabled={estado.bloqueado}
         />
         <button type="submit" onClick={validaResposta}>Enviar</button>
-        <button type="button" onClick={() => dispatch({type: 'editar'})}>Editar</button>
+        <button type="button" onClick={() => dispatch({ type: 'editar' })}>Editar</button>
       </div>
     </>
   );
