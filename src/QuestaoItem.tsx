@@ -5,15 +5,17 @@ import { questaoInterface } from "./QuestaoLista";
 interface Estado {
   resposta: string;
   bloqueado: boolean;
+  salvo: string;
 }
 
 type Action =
-  | { type: "setResposta"; texto: string }
-  | { type: "bloquear" | "editar" }
+  | { type: "setResposta"; texto: string; salvo: string }
+  | { type: "bloquear" | "editar" | "limpa" | "desfazer" };
 
 const estadoInicial: Estado = {
   resposta: "",
   bloqueado: false,
+  salvo: "",
 };
 
 function reducer(estado: Estado, action: Action): Estado {
@@ -21,11 +23,15 @@ function reducer(estado: Estado, action: Action): Estado {
     default:
       return estado;
     case "setResposta":
-      return { ...estado, resposta: action.texto };
+      return { ...estado, resposta: action.texto , salvo: action.salvo };
     case "bloquear":
       return { ...estado, bloqueado: true };
     case "editar":
       return { ...estado, bloqueado: false };
+    case "limpa":
+      return { ...estado, resposta: "", bloqueado: false };
+    case "desfazer":
+      return { ...estado, resposta: estado.salvo };
   }
 }
 
@@ -50,12 +56,14 @@ export default function QuestaoItem({ pergunta, exemplos }: questaoInterface) {
           placeholder="Digite sua resposta aqui..."
           value={estado.resposta}
           onChange={(e) =>
-            dispatch({ type: "setResposta", texto: e.target.value })
+            dispatch({ type: "setResposta", texto: e.target.value, salvo: estado.resposta })
           }
           disabled={estado.bloqueado}
         />
         <button type="submit" onClick={validaResposta}>Enviar</button>
         <button type="button" onClick={() => dispatch({ type: 'editar' })}>Editar</button>
+        <button type="button" onClick={() => dispatch({ type: 'limpa' })}>Limpa</button>
+        <button type="button" onClick={() => dispatch({ type: 'desfazer' })}>Desfazer</button>
       </div>
     </>
   );
