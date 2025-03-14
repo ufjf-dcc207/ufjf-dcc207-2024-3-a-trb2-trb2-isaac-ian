@@ -1,50 +1,54 @@
+// QuestaoItem.tsx
 import { useReducer } from "react";
 import "./QuestaoItem.css";
-import { questaoInterface } from "./QuestaoLista";
 
 interface Estado {
   resposta: string;
   bloqueado: boolean;
-  salvo: string;
 }
 
 type Action =
-  | { type: "setResposta"; texto: string; salvo: string }
-  | { type: "bloquear" | "editar" | "limpa" | "desfazer" };
+  | { type: "setResposta"; texto: string }
+  | { type: "bloquear" | "editar" | "limpa" };
 
 const estadoInicial: Estado = {
   resposta: "",
   bloqueado: false,
-  salvo: "",
 };
 
 function reducer(estado: Estado, action: Action): Estado {
   switch (action.type) {
-    default:
-      return estado;
     case "setResposta":
-      return { ...estado, resposta: action.texto , salvo: action.salvo };
+      return { ...estado, resposta: action.texto };
     case "bloquear":
       return { ...estado, bloqueado: true };
     case "editar":
       return { ...estado, bloqueado: false };
     case "limpa":
       return { ...estado, resposta: "", bloqueado: false };
-    case "desfazer":
-      return { ...estado, resposta: estado.salvo };
+    default:
+      return estado;
   }
 }
 
-export default function QuestaoItem({ pergunta, exemplos }: questaoInterface) {
+interface Props {
+  id: number;
+  pergunta: string;
+  exemplos: string;
+  adicionarEnvio: (id: number, resposta: string) => void;
+}
+
+export default function QuestaoItem({ id, pergunta, exemplos, adicionarEnvio }: Props) {
   const [estado, dispatch] = useReducer(reducer, estadoInicial);
 
   const validaResposta = () => {
-    if (estado.resposta === "") {
+    if (estado.resposta.trim() === "") {
       alert("Campo de resposta vazio.");
-    } else {
-      dispatch({ type: 'bloquear' });
+      return;
     }
-  }
+    adicionarEnvio(id, estado.resposta); // Salva no array envios
+    dispatch({ type: "limpa" }); 
+  };
 
   return (
     <>
@@ -56,14 +60,13 @@ export default function QuestaoItem({ pergunta, exemplos }: questaoInterface) {
           placeholder="Digite sua resposta aqui..."
           value={estado.resposta}
           onChange={(e) =>
-            dispatch({ type: "setResposta", texto: e.target.value, salvo: estado.resposta })
+            dispatch({ type: "setResposta", texto: e.target.value })
           }
           disabled={estado.bloqueado}
         />
         <button type="submit" onClick={validaResposta}>Enviar</button>
-        <button type="button" onClick={() => dispatch({ type: 'editar' })}>Editar</button>
-        <button type="button" onClick={() => dispatch({ type: 'limpa' })}>Limpa</button>
-        <button type="button" onClick={() => dispatch({ type: 'desfazer' })}>Desfazer</button>
+        <button type="button" onClick={() => dispatch({ type: "editar" })}>Editar</button>
+        <button type="button" onClick={() => dispatch({ type: "limpa" })}>Limpar</button>
       </div>
     </>
   );
