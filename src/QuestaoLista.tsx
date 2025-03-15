@@ -41,7 +41,7 @@ export default function ListaDeQuestoes() {
         const questoesSalvas = localStorage.getItem("questoes");
         if (questoesSalvas) {
             const questoes = JSON.parse(questoesSalvas);
-            console.table(questoes); // Exibe todas as questões com suas respostas
+            console.table(questoes); 
             return questoes;
         } else {
             console.log("Nenhuma resposta salva.");
@@ -59,7 +59,7 @@ export default function ListaDeQuestoes() {
                             pergunta={q.pergunta}
                             exemplos={q.exemplos}
                             adicionarEnvio={adicionarResposta}
-                            envios={q.envios} // Passa o array de respostas da questão
+                            envios={q.envios} 
                         />
                     </li>
                 ))}
